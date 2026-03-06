@@ -15,7 +15,6 @@ import { LocalStorageEnum } from "@/enums/ui/local-storage.enum";
 /* Font imports */
 import stolzl from "../_font/stolzl";
 /* Other libraries imports */
-import { SessionProvider } from "next-auth/react";
 import { useLocalStorageState } from "ahooks";
 /* RootLayout */
 const RootLayout: React.FC<{ children: React.ReactNode }> = (props) => {
@@ -75,11 +74,9 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = (props) => {
       }}
     >
       <AntdWrapper message={{ duration: 1, pauseOnHover: false }}>
-        <SessionProvider>
-          <AntdLayout colorTheme={colorTheme} setColorTheme={setColorTheme}>
-            {props.children}
-          </AntdLayout>
-        </SessionProvider>
+        <AntdLayout colorTheme={colorTheme} setColorTheme={setColorTheme}>
+          {props.children}
+        </AntdLayout>
       </AntdWrapper>
     </AntdConfigProvider>
   );

@@ -10,7 +10,6 @@ import { RoutePathEnum } from "@/enums/ui/route-paths.enum";
 /* Next.js imports */
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 /* Other libraries imports */
 import { Col, Grid, Layout, Row, theme, Typography } from "antd";
 import { SetState } from "ahooks/lib/createUseStorageState";
@@ -37,14 +36,6 @@ const AntdLayout: React.FC<{
   }
 
   useFavicon(faviconPath);
-  /**
-   *
-   */
-
-  /**
-   * useSession.
-   */
-  const { status } = useSession();
   /**
    *
    */
@@ -133,133 +124,129 @@ const AntdLayout: React.FC<{
    *
    */
 
-  if (status === "authenticated") {
-    return (
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          style={{
-            height: "100vh",
-            insetInlineStart: 0,
-            position: "sticky",
-            overflow: "auto",
-            scrollbarColor:
-              props.colorTheme === ColorThemeEnum.DARK
-                ? `${ColorPaletteEnum.PRIMARY_COLOR} ${ColorPaletteEnum.SECONDARY_COLOR}`
-                : `${ColorPaletteEnum.SECONDARY_COLOR} ${ColorPaletteEnum.PRIMARY_COLOR}`,
-            top: 0,
-          }}
-          theme={props.colorTheme === ColorThemeEnum.DARK ? "dark" : "light"}
-          trigger={null}
-          width={screenNotOnMdSize && screenNotOnSmSize ? 331.25 : 200}
-        >
-          <Col style={{ height: 60.25, padding: paddingSM }}>
-            <Row justify="center">
-              <Image
-                alt="AmbTec logo"
-                height={sizeXL}
-                onClick={() => router.push("/")}
-                onMouseEnter={() => setMouseHoverLogo(true)}
-                onMouseLeave={() => setMouseHoverLogo(false)}
-                src={logoPath}
-                style={{ cursor: mouseHoverLogo ? "pointer" : "auto" }}
-                width={collapsed ? sizeXL : sizeXL * 5}
-              />
-            </Row>
-          </Col>
+  return (
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        style={{
+          height: "100vh",
+          insetInlineStart: 0,
+          position: "sticky",
+          overflow: "auto",
+          scrollbarColor:
+            props.colorTheme === ColorThemeEnum.DARK
+              ? `${ColorPaletteEnum.PRIMARY_COLOR} ${ColorPaletteEnum.SECONDARY_COLOR}`
+              : `${ColorPaletteEnum.SECONDARY_COLOR} ${ColorPaletteEnum.PRIMARY_COLOR}`,
+          top: 0,
+        }}
+        theme={props.colorTheme === ColorThemeEnum.DARK ? "dark" : "light"}
+        trigger={null}
+        width={screenNotOnMdSize && screenNotOnSmSize ? 331.25 : 200}
+      >
+        <Col style={{ height: 60.25, padding: paddingSM }}>
+          <Row justify="center">
+            <Image
+              alt="AmbTec logo"
+              height={sizeXL}
+              onClick={() => router.push("/")}
+              onMouseEnter={() => setMouseHoverLogo(true)}
+              onMouseLeave={() => setMouseHoverLogo(false)}
+              src={logoPath}
+              style={{ cursor: mouseHoverLogo ? "pointer" : "auto" }}
+              width={collapsed ? sizeXL : sizeXL * 5}
+            />
+          </Row>
+        </Col>
 
-          <Col>
-            <SiderMenu
+        <Col>
+          <SiderMenu
+            collapsed={collapsed}
+            colorTheme={props.colorTheme}
+            pathname={pathname}
+            router={router}
+            screenNotOnMdSize={screenNotOnMdSize}
+            screenNotOnSmSize={screenNotOnSmSize}
+          />
+        </Col>
+      </Sider>
+
+      <Layout>
+        <Header
+          style={{
+            background:
+              props.colorTheme === ColorThemeEnum.DARK
+                ? ColorPaletteEnum.SECONDARY_COLOR
+                : ColorPaletteEnum.PRIMARY_COLOR,
+            fontSize: fontSizeHeading4,
+            paddingLeft: paddingSM,
+            paddingRight: paddingSM,
+          }}
+        >
+          {screenNotOnMdSize && screenNotOnSmSize ? (
+            <MainHeaderContent
               collapsed={collapsed}
               colorTheme={props.colorTheme}
+              margin={marginMD}
               pathname={pathname}
-              router={router}
-              screenNotOnMdSize={screenNotOnMdSize}
-              screenNotOnSmSize={screenNotOnSmSize}
+              setCollapsed={setCollapsed}
+              setColorTheme={props.setColorTheme}
             />
+          ) : (
+            <MinHeaderContent
+              collapsed={collapsed}
+              colorTheme={props.colorTheme}
+              margin={marginMD}
+              setCollapsed={setCollapsed}
+              setColorTheme={props.setColorTheme}
+            />
+          )}
+        </Header>
+
+        <Content
+          hidden={
+            !screenNotOnMdSize && !screenNotOnSmSize && !collapsed
+              ? true
+              : false
+          }
+          style={{ margin: marginMD }}
+        >
+          <Col
+            style={{
+              background: colorBgContainer,
+              boxShadow,
+              borderRadius,
+              minHeight: "fit-content",
+              padding: paddingMD,
+            }}
+          >
+            {props.children}
           </Col>
-        </Sider>
+        </Content>
 
-        <Layout>
-          <Header
-            style={{
-              background:
-                props.colorTheme === ColorThemeEnum.DARK
-                  ? ColorPaletteEnum.SECONDARY_COLOR
-                  : ColorPaletteEnum.PRIMARY_COLOR,
-              fontSize: fontSizeHeading4,
-              paddingLeft: paddingSM,
-              paddingRight: paddingSM,
-            }}
-          >
-            {screenNotOnMdSize && screenNotOnSmSize ? (
-              <MainHeaderContent
-                collapsed={collapsed}
-                colorTheme={props.colorTheme}
-                margin={marginMD}
-                pathname={pathname}
-                setCollapsed={setCollapsed}
-                setColorTheme={props.setColorTheme}
-              />
-            ) : (
-              <MinHeaderContent
-                collapsed={collapsed}
-                colorTheme={props.colorTheme}
-                margin={marginMD}
-                setCollapsed={setCollapsed}
-                setColorTheme={props.setColorTheme}
-              />
-            )}
-          </Header>
-
-          <Content
-            hidden={
-              !screenNotOnMdSize && !screenNotOnSmSize && !collapsed
-                ? true
-                : false
-            }
-            style={{ margin: marginMD }}
-          >
-            <Col
-              style={{
-                background: colorBgContainer,
-                boxShadow,
-                borderRadius,
-                minHeight: "fit-content",
-                padding: paddingMD,
-              }}
-            >
-              {props.children}
-            </Col>
-          </Content>
-
-          <Footer
-            hidden={
-              !screenNotOnMdSize && !screenNotOnSmSize && !collapsed
-                ? true
-                : false
-            }
-            style={{
-              background:
-                props.colorTheme === ColorThemeEnum.DARK
-                  ? ColorPaletteEnum.SECONDARY_COLOR
-                  : ColorPaletteEnum.PRIMARY_COLOR,
-              fontSize: fontSizeSM,
-              padding: paddingSM,
-              textAlign: "center",
-            }}
-          >
-            <Text type="secondary" style={{ fontSize: sizeSM }}>
-              AmbTec © {new Date().getFullYear()} by Hidrogeo Tecnologia!
-            </Text>
-          </Footer>
-        </Layout>
+        <Footer
+          hidden={
+            !screenNotOnMdSize && !screenNotOnSmSize && !collapsed
+              ? true
+              : false
+          }
+          style={{
+            background:
+              props.colorTheme === ColorThemeEnum.DARK
+                ? ColorPaletteEnum.SECONDARY_COLOR
+                : ColorPaletteEnum.PRIMARY_COLOR,
+            fontSize: fontSizeSM,
+            padding: paddingSM,
+            textAlign: "center",
+          }}
+        >
+          <Text type="secondary" style={{ fontSize: sizeSM }}>
+            AmbTec © {new Date().getFullYear()} by Hidrogeo Tecnologia!
+          </Text>
+        </Footer>
       </Layout>
-    );
-  }
-
-  return <Col style={{ marginTop: marginMD }}>{props.children}</Col>;
+    </Layout>
+  );
 };
 
 export default AntdLayout;

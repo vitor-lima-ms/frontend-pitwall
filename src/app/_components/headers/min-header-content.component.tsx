@@ -7,7 +7,6 @@ import { ColorThemeEnum } from "@/enums/ui/color-theme.enum";
 /* Other libraries imports */
 import { Col, Flex, Row } from "antd";
 import { SetState } from "ahooks/lib/createUseStorageState";
-import { useSession } from "next-auth/react";
 /* MainHeaderContent */
 const MinHeaderContent: React.FC<{
   collapsed: boolean;
@@ -16,14 +15,6 @@ const MinHeaderContent: React.FC<{
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   setColorTheme: (value: SetState<ColorThemeEnum | undefined>) => void;
 }> = (props) => {
-  /**
-   * useSession.
-   */
-  const { data } = useSession();
-  /**
-   *
-   */
-
   return (
     <Row>
       <Col span={12} style={{ alignContent: "center" }}>
@@ -42,8 +33,6 @@ const MinHeaderContent: React.FC<{
           justify="flex-end"
           style={{ margin: props.margin }}
         >
-          {data?.accessToken && <LogoutButton colorTheme={props.colorTheme} />}
-
           <ChangeThemeButton
             colorTheme={props.colorTheme}
             setColorTheme={props.setColorTheme}

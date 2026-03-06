@@ -9,7 +9,6 @@ import { RoutePathEnum } from "@/enums/ui/route-paths.enum";
 /* Other libraries imports */
 import { Col, Flex, Row, Typography } from "antd";
 import { SetState } from "ahooks/lib/createUseStorageState";
-import { useSession } from "next-auth/react";
 /* React imports */
 import { Dispatch, SetStateAction } from "react";
 /* Util imports */
@@ -23,14 +22,6 @@ const MainHeaderContent: React.FC<{
   setCollapsed: Dispatch<SetStateAction<boolean>>;
   setColorTheme: (value: SetState<ColorThemeEnum | undefined>) => void;
 }> = (props) => {
-  /**
-   * useSession.
-   */
-  const { data } = useSession();
-  /**
-   *
-   */
-
   /**
    * Typography.
    */
@@ -80,21 +71,6 @@ const MainHeaderContent: React.FC<{
           justify="flex-end"
           style={{ margin: props.margin }}
         >
-          {props.collapsed && data?.user?.name && (
-            <Paragraph
-              style={{
-                color:
-                  props.colorTheme === ColorThemeEnum.DARK
-                    ? ColorPaletteEnum.PRIMARY_COLOR
-                    : ColorPaletteEnum.SECONDARY_COLOR,
-                fontWeight: "bold",
-                margin: 0,
-              }}
-            >{`Olá, ${data.user.name}!`}</Paragraph>
-          )}
-
-          {data?.accessToken && <LogoutButton colorTheme={props.colorTheme} />}
-
           <ChangeThemeButton
             colorTheme={props.colorTheme}
             setColorTheme={props.setColorTheme}
