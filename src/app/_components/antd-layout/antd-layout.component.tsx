@@ -112,13 +112,13 @@ const AntdLayout: React.FC<{
   let logoPath: LogosPathsEnum;
 
   if (collapsed && props.colorTheme === ColorThemeEnum.DARK) {
-    logoPath = LogosPathsEnum.LIGHT_LOGO;
-  } else if (!collapsed && props.colorTheme === ColorThemeEnum.DARK) {
-    logoPath = LogosPathsEnum.LIGHT_FULL_LOGO;
-  } else if (collapsed && props.colorTheme === ColorThemeEnum.LIGHT) {
     logoPath = LogosPathsEnum.DARK_LOGO;
-  } else {
+  } else if (!collapsed && props.colorTheme === ColorThemeEnum.DARK) {
     logoPath = LogosPathsEnum.DARK_FULL_LOGO;
+  } else if (collapsed && props.colorTheme === ColorThemeEnum.LIGHT) {
+    logoPath = LogosPathsEnum.LIGHT_LOGO;
+  } else {
+    logoPath = LogosPathsEnum.LIGHT_FULL_LOGO;
   }
   /**
    *
