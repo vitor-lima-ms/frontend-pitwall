@@ -8,6 +8,7 @@ import GenericSuccessResponse from "@/responses/generic-success.response";
 type GenericParamsForApiCallsType = {
   id?: string;
   method: HttpMethodsEnum;
+  params?: string[];
   url: string;
 };
 
@@ -46,8 +47,8 @@ export default class ApiUtils {
     params: GenericParamsForApiCallsType,
   ): string | void {
     if (
-      (params.method === HttpMethodsEnum.GET && !params.id) ||
-      (params.method === HttpMethodsEnum.POST && !params.id)
+      (params.method === HttpMethodsEnum.GET && !params.id && !params.params) ||
+      (params.method === HttpMethodsEnum.POST && !params.id && !params.params)
     ) {
       return `${ApiUtils.baseUrl}${params.url}`;
     }
@@ -57,6 +58,16 @@ export default class ApiUtils {
       (params.method === HttpMethodsEnum.POST && params.id)
     ) {
       return `${ApiUtils.baseUrl}${params.url}/${params.id}`;
+    }
+
+    if (params.method === HttpMethodsEnum.GET && params.params) {
+      if (params.params.length === 1) {
+        return `${ApiUtils.baseUrl}${params.url}/${params.params[0]}`;
+      } else {
+        const slashSeparatedParams = params.params.join("/");
+
+        return `${ApiUtils.baseUrl}${params.url}/${slashSeparatedParams}`;
+      }
     }
 
     if (
