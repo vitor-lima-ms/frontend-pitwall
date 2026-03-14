@@ -3,7 +3,7 @@ export default interface FindDriversData {
   MRData: {
     DriverTable: {
       Drivers: {
-        code: string;
+        code: null | string;
         dateOfBirth: string;
         driverId: string;
         familyName: string;
