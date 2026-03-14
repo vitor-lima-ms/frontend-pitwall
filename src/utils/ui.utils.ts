@@ -7,6 +7,8 @@ export default class UiUtils {
     pathname: RoutePathEnum,
   ): PluralPagesNamesEnum | string {
     switch (pathname) {
+      case RoutePathEnum.CIRCUIT:
+        return PluralPagesNamesEnum.CIRCUIT;
       case RoutePathEnum.CONSTRUCTOR:
         return PluralPagesNamesEnum.CONSTRUCTOR;
       case RoutePathEnum.DRIVER:
