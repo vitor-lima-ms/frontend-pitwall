@@ -26,6 +26,15 @@ const SiderMenu: React.FC<{
   const menuItems: ItemType<MenuItemType>[] = [
     {
       key: "1",
+      label: PluralPagesNamesEnum.CONSTRUCTOR,
+      onClick: (info) => {
+        props.router.push(RoutePathEnum.CONSTRUCTOR);
+
+        setMenuItemKey(info.key);
+      },
+    },
+    {
+      key: "2",
       label: PluralPagesNamesEnum.DRIVER,
       onClick: (info) => {
         props.router.push(RoutePathEnum.DRIVER);
