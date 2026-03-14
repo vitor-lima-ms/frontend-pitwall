@@ -2,8 +2,6 @@
 import { ColorThemeEnum } from "@/enums/ui/color-theme.enum";
 import { PluralPagesNamesEnum } from "@/enums/ui/plural-pages-names.enum";
 import { RoutePathEnum } from "@/enums/ui/route-paths.enum";
-/* Icons import */
-import Icons from "../icons/icons";
 /* Next.js imports */
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 /* Other libraries imports */
@@ -27,7 +25,6 @@ const SiderMenu: React.FC<{
 
   const menuItems: ItemType<MenuItemType>[] = [
     {
-      icon: Icons.em,
       key: "1",
       label: PluralPagesNamesEnum.DRIVER,
       onClick: (info) => {
