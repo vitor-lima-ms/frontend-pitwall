@@ -11,7 +11,7 @@ import { RoutePathEnum } from "@/enums/ui/route-paths.enum";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 /* Other libraries imports */
-import { Col, Grid, Layout, Row, theme, Typography } from "antd";
+import { Col, Grid, Layout, Row, theme } from "antd";
 import { SetState } from "ahooks/lib/createUseStorageState";
 import { useFavicon } from "ahooks";
 /* React imports */
@@ -63,18 +63,12 @@ const AntdLayout: React.FC<{
       marginMD,
       paddingMD,
       paddingSM,
-      sizeSM,
       sizeXL,
     },
   } = theme.useToken();
   /**
    *
    */
-
-  /**
-   * Typography.
-   */
-  const { Text } = Typography;
 
   /**
    * Controle dos breakpoints.
@@ -239,11 +233,7 @@ const AntdLayout: React.FC<{
             padding: paddingSM,
             textAlign: "center",
           }}
-        >
-          <Text type="secondary" style={{ fontSize: sizeSM }}>
-            AmbTec © {new Date().getFullYear()} by Hidrogeo Tecnologia!
-          </Text>
-        </Footer>
+        />
       </Layout>
     </Layout>
   );
